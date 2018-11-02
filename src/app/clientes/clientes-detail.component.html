@@ -1,0 +1,110 @@
+<div class="container">
+
+  <form [formGroup]="form">
+    <mat-form-field class="col-md-2 col-sm-6">
+        <mat-select placeholder="NIF o Pasaporte" type="text" (selectionChange)="actualizarValores()"
+                name="nifOption" formControlName="nifOption">
+            <mat-option value="nifCif">DNI/CIF</mat-option>
+            <mat-option value="passport">Pasaporte</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="col-md-2 col-sm-6">
+            <input input matInput placeholder="NIF:" name="nif" formControlName="nif"
+                   type="text" [matAutocomplete]="auto" [(ngModel)]="query">
+            <mat-error *ngIf="form.controls.nif.errors">No es un NIF válido.</mat-error>
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                <mat-option *ngFor="let cliente of clientes | search: query" 
+                    [value]="cliente.nif" (click)="completeForm(cliente)">
+                    {{cliente.nif}}
+                </mat-option>
+            </mat-autocomplete>
+    </mat-form-field>
+
+
+    <mat-form-field class="col-md-4 col-sm-12">
+            <input input matInput placeholder="Nombre:" name="nombre"
+            formControlName="nombre" type="text">
+    </mat-form-field>
+
+
+    <mat-form-field class="col-md-4 col-sm-12">
+            <input input matInput placeholder="Apellidos:" name="apellidos"
+            formControlName="apellidos" type="text">
+    </mat-form-field>
+
+    <mat-form-field class="col-md-2 col-sm-6">
+        <mat-select placeholder="NIF o Pasaporte" type="text"
+                    name="nifOptionRepres" formControlName="nifOptionRepres">
+            <mat-option value="nifCifRepres">DNI/CIF</mat-option>
+            <mat-option value="passportRepres">Pasaporte</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="col-md-2 col-sm-6">
+            <input input matInput placeholder="NIF Repres.:" name="dni_repres"
+            formControlName="dni_repres" type="text">
+            <mat-error *ngIf="form.controls.dni_repres.errors">No es un NIF válido.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="col-md-4 col-sm-12">
+            <input input matInput placeholder="Nombre y Apellidos Repres.:" name="nombre_repres"
+            formControlName="nombre_repres" type="text">
+    </mat-form-field>
+
+    <mat-form-field class="col-md-4 col-sm-12">
+            <input input matInput placeholder="Email:" name="email"
+            formControlName="email" type="email">
+            <mat-error *ngIf="form.controls.email.errors">No es un email válido.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="col-md-2 col-sm-6">
+            <input input matInput placeholder="Teléfono 1:" name="tlf1"
+            formControlName="tlf1" type="text">
+    </mat-form-field>
+
+    <mat-form-field class="col-md-2 col-sm-6">
+            <input input matInput placeholder="Teléfono 2:" name="tlf2"
+            formControlName="tlf2" type="text">
+    </mat-form-field>
+
+    <mat-form-field class="col-md-8 col-sm-12">
+            <input input matInput placeholder="Dirección Fiscal:" name="direccion"
+            formControlName="direccion" type="text">
+    </mat-form-field>
+
+    <mat-form-field class="col-md-4 col-sm-6">
+            <input input matInput placeholder="Población:" name="poblacion"
+            formControlName="poblacion" type="text">
+    </mat-form-field>
+
+    <mat-form-field class="col-md-2 col-sm-6">
+            <input input matInput placeholder="Cod. Postal:" name="cp"
+            formControlName="cp" type="text" 
+            (keyup)="buscarProvincia()">
+    </mat-form-field>
+
+    <mat-form-field class="col-md-2 col-sm-6">
+            <input input matInput placeholder="Provincia:" name="provincia"
+            formControlName="provincia" type="text">
+    </mat-form-field>
+
+    <mat-form-field class="col-md-4 col-sm-6">
+            <input input matInput placeholder="Número IBAN:" name="iban"
+            formControlName="iban" type="text">
+            <mat-error *ngIf="form.controls.iban.errors">No es un IBAN válido.</mat-error>
+    </mat-form-field>
+
+  </form>
+
+    <div class="row justify-content-center">
+        <button mat-raised-button color="primary" [disabled]="form.invalid"
+                class="col-6" (click)="comprobarForm()">Guardar Cliente</button>
+    </div>
+    <br>
+    <div class="row justify-content-center" *ngIf="form.value.id">
+        <button mat-raised-button color="warn" [disabled]="form.invalid"
+                class="col-6" (click)="deleteClienteDetail(form.value.id)">Borrar Cliente</button>
+    </div>
+
+</div>

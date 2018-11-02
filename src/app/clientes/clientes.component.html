@@ -1,0 +1,80 @@
+<mat-form-field>
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtro">
+</mat-form-field>
+
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort>
+
+    <!-- NIF Column -->
+    <ng-container matColumnDef="nif">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> NIF </th>
+      <td mat-cell *matCellDef="let row"> {{row.nif}} </td>
+    </ng-container>
+
+    <!-- Nombre Column -->
+    <ng-container matColumnDef="nombre">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
+      <td mat-cell *matCellDef="let row"> {{row.nombre}} </td>
+    </ng-container>
+
+    <!-- Apellidos Column -->
+    <ng-container matColumnDef="apellidos">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Apellidos </th>
+      <td mat-cell *matCellDef="let row"> {{row.apellidos}} </td>
+    </ng-container>
+
+    <!-- DNI Repres. Column -->
+    <ng-container matColumnDef="dni_repres">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> DNI Repres. </th>
+      <td mat-cell *matCellDef="let row"> {{row.dni_repres}} </td>
+    </ng-container>
+
+    <!-- Nombre Repres. Column -->
+    <ng-container matColumnDef="nombre_repres">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre Repres. </th>
+      <td mat-cell *matCellDef="let row"> {{row.nombre_repres}} </td>
+    </ng-container>
+
+    <!-- Teléfono Column -->
+    <ng-container matColumnDef="tlf1">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Teléfono </th>
+      <td mat-cell *matCellDef="let row"> {{row.tlf1}} </td>
+    </ng-container>
+
+    <!-- Email Column -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+      <td mat-cell *matCellDef="let row"> {{row.email}} </td>
+    </ng-container>
+
+    <!-- Provincia Column -->
+    <ng-container matColumnDef="provincia">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Provincia </th>
+      <td mat-cell *matCellDef="let row"> {{row.provincia}} </td>
+    </ng-container>
+
+    <!-- Editar Column -->
+    <ng-container matColumnDef="editar">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        <button type="button"
+        class="btn btn-outline-primary btn-rounded waves-effec btn-sm my-0"
+        routerLink="/clientes/new">
+          Crear
+        </button>
+      </th>
+      <td mat-cell *matCellDef="let row"> 
+        <button type="button"
+        class="btn btn-outline-primary btn-rounded waves-effec btn-sm my-0"
+        routerLink="/clientes/{{ row.id }}">
+          Editar
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+    </tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]"></mat-paginator>
+</div>
